@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Básica del Servidor Apache</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f8;
+            color: #333;
+        }
+        header {
+            background-color: #b22222;
+            color: #fff;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        section {
+            background: #fff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #b22222;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        code, pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 0.8rem;
+            border-radius: 4px;
+            display: block;
+            overflow-x: auto;
+        }
+        ul {
+            padding-left: 1.5rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Guía Básica del Servidor Apache</h1>
+        <p>Conceptos esenciales, directorios y comandos para principiantes</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>¿Qué es Apache?</h2>
+            <p>El **Servidor HTTP Apache** es uno de los servidores web más populares y utilizados del mundo. Es un software libre y de código abierto que procesa peticiones HTTP y entrega contenido (páginas HTML, imágenes, archivos) a los navegadores de los usuarios.</p>
+        </section>
+
+        <section>
+            <h2>Directorio Raíz (DocumentRoot)</h2>
+            <p>Es la carpeta donde guardas los archivos de tu sitio web (como <code>index.html</code>).</p>
+            <ul>
+                <li><strong>En sistemas Linux (Ubuntu/Debian):</strong> <code>/var/www/html/</code></li>
+                <li><strong>En XAMPP (Linux):</strong> <code>/opt/lampp/htdocs/</code></li>
+                <li><strong>En XAMPP (Windows):</strong> Carpeta <code>htdocs</code> dentro del directorio de instalación</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Estructura de Archivos en Linux</h2>
+            <p>Los archivos de configuración principales de Apache se encuentran generalmente en:</p>
+            <ul>
+                <li><code>/etc/apache2/apache2.conf</code> o <code>httpd.conf</code>: Configuración global.</li>
+                <li><code>/etc/apache2/sites-available/</code>: Definición de sitios virtuales (VirtualHost).</li>
+                <li><code>/etc/apache2/sites-enabled/</code>: Sitios activos.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Comandos Básicos (Linux / systemctl)</h2>
+            <p>Para controlar el servicio de Apache en la terminal, utiliza los siguientes comandos:</p>
+            <pre><code># Iniciar el servidor Apache
+sudo systemctl start apache2
+
+# Detener el servidor Apache
+sudo systemctl stop apache2
+
+# Reiniciar el servidor Apache
+sudo systemctl restart apache2
+
+# Comprobar el estado del servidor
+sudo systemctl status apache2</code></pre>
+        </section>
+
+        <section>
+            <h2>Ejemplo de un archivo HTML básico</h2>
+            <p>Para que Apache muestre una página al entrar a tu servidor, crea un archivo llamado <code>index.html</code> dentro de tu <code>DocumentRoot</code> con el siguiente contenido:</p>
+            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title>Mi sitio en Apache&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;¡Hola Mundo desde Apache!&lt;/h1&gt;
+    &lt;p&gt;Este sitio está funcionando correctamente.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </section>
+    </main>
+
+    <footer>
+        <p>Guía de referencia rápida de Apache HTTP Server.</p>
+    </footer>
+
+</body>
+</html>
