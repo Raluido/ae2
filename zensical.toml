@@ -1,13 +1,18 @@
 [project]
-name = "ae2"
+site_name = "ae2"
 version = "0.1.0"
-description = "Add your description here"
+description = "Web estatica y manual de nginx con zensical"
 readme = "README.md"
 authors = [
     { name = "Raúl Luis Domínguez", email = "raluido@gmail.com" }
 ]
 requires-python = ">=3.12"
 dependencies = []
+docs_dir = "docs"
+site_dir = "site"
+
+[nav]
+"Inicio" = "index.md"
 
 [project.scripts]
 ae2 = "ae2:main"

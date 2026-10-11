@@ -1,0 +1,750 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="./assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.68">
+    
+    
+      
+        <title>Manual Práctico de Nginx para Administradores de Sistemas - ae2</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="./assets/stylesheets/modern/main.595f2bf5.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="" title="ae2" class="md-header__button md-logo" aria-label="ae2" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ae2
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Manual Práctico de Nginx para Administradores de Sistemas
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="" title="ae2" class="md-nav__button md-logo" aria-label="ae2" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    ae2
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Manual Práctico de Nginx para Administradores de Sistemas
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Manual Práctico de Nginx para Administradores de Sistemas
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-arquitectura-y-conceptos-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. Arquitectura y Conceptos Clave
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-estructura-de-directorios-estandar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. Estructura de Directorios Estándar
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-comandos-de-control-esenciales" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. Comandos de Control Esenciales
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Comandos de Control Esenciales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verificar-la-sintaxis-de-configuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Verificar la Sintaxis de Configuración
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aplicar-cambios-sin-cortar-conexiones-recomendado" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Aplicar Cambios sin Cortar Conexiones (Recomendado)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#control-del-servicio-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Control del Servicio Completo
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-bloques-de-configuracion-comunes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4. Bloques de Configuración Comunes
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Bloques de Configuración Comunes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-servidor-web-estatico-basica" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A. Servidor Web Estático Básica
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-proxy-inverso-conexion-a-gunicorn-nodejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        B. Proxy Inverso (Conexión a Gunicorn / Node.js)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-diagnostico-y-resolucion-de-problemas-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5. Diagnóstico y Resolución de Problemas (Troubleshooting)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Diagnóstico y Resolución de Problemas (Troubleshooting)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inspeccionar-errores-en-tiempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Inspeccionar Errores en Tiempo Real
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errores-comunes-de-conexion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Errores Comunes de Conexión
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-arquitectura-y-conceptos-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. Arquitectura y Conceptos Clave
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-estructura-de-directorios-estandar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. Estructura de Directorios Estándar
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-comandos-de-control-esenciales" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. Comandos de Control Esenciales
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Comandos de Control Esenciales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verificar-la-sintaxis-de-configuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Verificar la Sintaxis de Configuración
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aplicar-cambios-sin-cortar-conexiones-recomendado" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Aplicar Cambios sin Cortar Conexiones (Recomendado)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#control-del-servicio-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Control del Servicio Completo
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-bloques-de-configuracion-comunes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4. Bloques de Configuración Comunes
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Bloques de Configuración Comunes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-servidor-web-estatico-basica" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A. Servidor Web Estático Básica
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-proxy-inverso-conexion-a-gunicorn-nodejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        B. Proxy Inverso (Conexión a Gunicorn / Node.js)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-diagnostico-y-resolucion-de-problemas-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5. Diagnóstico y Resolución de Problemas (Troubleshooting)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Diagnóstico y Resolución de Problemas (Troubleshooting)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inspeccionar-errores-en-tiempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Inspeccionar Errores en Tiempo Real
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errores-comunes-de-conexion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Errores Comunes de Conexión
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+
+<h1 id="manual-practico-de-nginx-para-administradores-de-sistemas">Manual Práctico de Nginx para Administradores de Sistemas<a class="headerlink" href="#manual-practico-de-nginx-para-administradores-de-sistemas" title="Permanent link">&para;</a></h1>
+<p>Este manual condensa los conceptos fundamentales, configuraciones esenciales y comandos críticos para administrar un servidor web y proxy inverso <strong>Nginx</strong> en entornos de desarrollo y producción.</p>
+<hr />
+<h2 id="1-arquitectura-y-conceptos-clave">1. Arquitectura y Conceptos Clave<a class="headerlink" href="#1-arquitectura-y-conceptos-clave" title="Permanent link">&para;</a></h2>
+<p>A diferencia de servidores tradicionales como Apache, Nginx utiliza una <strong>arquitectura orientada a eventos y no bloqueante</strong>. 
+* <strong>Master Process:</strong> Gestiona la configuración, abre puertos y coordina los procesos hijo.
+* <strong>Worker Processes:</strong> Procesos independientes que atienden las conexiones reales. Se recomienda configurar un <em>worker</em> por cada núcleo de CPU disponible.</p>
+<hr />
+<h2 id="2-estructura-de-directorios-estandar">2. Estructura de Directorios Estándar<a class="headerlink" href="#2-estructura-de-directorios-estandar" title="Permanent link">&para;</a></h2>
+<p>En sistemas basados en Debian/Ubuntu, la configuración se organiza de la siguiente manera:</p>
+<ul>
+<li><code>/etc/nginx/nginx.conf</code>: Archivo de configuración maestro del sistema.</li>
+<li><code>/etc/nginx/sites-available/</code>: Directorio que almacena los archivos de configuración de cada sitio web (activos o inactivos).</li>
+<li><code>/etc/nginx/sites-enabled/</code>: Directorio que contiene enlaces simbólicos (accesos directos) a los archivos de <code>sites-available</code>. Nginx solo lee los sitios que están aquí.</li>
+<li><code>/var/log/nginx/</code>: Directorio por defecto para los registros de tráfico (<code>access.log</code>) y fallos (<code>error.log</code>).</li>
+</ul>
+<hr />
+<h2 id="3-comandos-de-control-esenciales">3. Comandos de Control Esenciales<a class="headerlink" href="#3-comandos-de-control-esenciales" title="Permanent link">&para;</a></h2>
+<p>Todos los comandos de administración deben ejecutarse con privilegios de administrador (<code>sudo</code>):</p>
+<h3 id="verificar-la-sintaxis-de-configuracion">Verificar la Sintaxis de Configuración<a class="headerlink" href="#verificar-la-sintaxis-de-configuracion" title="Permanent link">&para;</a></h3>
+<p>Antes de reiniciar o recargar el servidor, comprueba que no haya errores tipográficos ni falten puntos y comas (<code>;</code>):
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>nginx<span class="w"> </span>-t
+</span></code></pre></div></p>
+<h3 id="aplicar-cambios-sin-cortar-conexiones-recomendado">Aplicar Cambios sin Cortar Conexiones (Recomendado)<a class="headerlink" href="#aplicar-cambios-sin-cortar-conexiones-recomendado" title="Permanent link">&para;</a></h3>
+<p>Vuelve a leer los archivos de configuración de forma limpia, manteniendo las visitas de los usuarios activos:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>nginx<span class="w"> </span>-s<span class="w"> </span>reload
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># O mediante el sistema:</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>sudo<span class="w"> </span>service<span class="w"> </span>nginx<span class="w"> </span>reload
+</span></code></pre></div></p>
+<h3 id="control-del-servicio-completo">Control del Servicio Completo<a class="headerlink" href="#control-del-servicio-completo" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>service<span class="w"> </span>nginx<span class="w"> </span>start<span class="w">     </span><span class="c1"># Iniciar el servidor</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sudo<span class="w"> </span>service<span class="w"> </span>nginx<span class="w"> </span>stop<span class="w">      </span><span class="c1"># Detener el servidor</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>sudo<span class="w"> </span>service<span class="w"> </span>nginx<span class="w"> </span>restart<span class="w">   </span><span class="c1"># Forzar un reinicio completo</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>sudo<span class="w"> </span>service<span class="w"> </span>nginx<span class="w"> </span>status<span class="w">    </span><span class="c1"># Verificar si está activo y ver errores rápidos</span>
+</span></code></pre></div>
+<hr />
+<h2 id="4-bloques-de-configuracion-comunes">4. Bloques de Configuración Comunes<a class="headerlink" href="#4-bloques-de-configuracion-comunes" title="Permanent link">&para;</a></h2>
+<h3 id="a-servidor-web-estatico-basica">A. Servidor Web Estático Básica<a class="headerlink" href="#a-servidor-web-estatico-basica" title="Permanent link">&para;</a></h3>
+<p>Configuración para servir archivos HTML, CSS y JS desde un directorio local.</p>
+<div class="language-nginx highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="s">[::]:80</span><span class="p">;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="s">misitioweb.com</span><span class="w"> </span><span class="p">:</span><span class="s">//misitioweb.com</span><span class="p">;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="kn">root</span><span class="w"> </span><span class="s">/var/www/misitioweb</span><span class="p">;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="kn">index</span><span class="w"> </span><span class="s">index.html</span><span class="w"> </span><span class="s">index.htm</span><span class="p">;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">        </span><span class="kn">try_files</span><span class="w"> </span><span class="nv">$uri</span><span class="w"> </span><span class="nv">$uri/</span><span class="w"> </span><span class="p">=</span><span class="mi">404</span><span class="p">;</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="b-proxy-inverso-conexion-a-gunicorn-nodejs">B. Proxy Inverso (Conexión a Gunicorn / Node.js)<a class="headerlink" href="#b-proxy-inverso-conexion-a-gunicorn-nodejs" title="Permanent link">&para;</a></h3>
+<p>Configuración para redirigir el tráfico del puerto web exterior (<code>80</code>) hacia una aplicación que corre internamente en otro puerto (ej. <code>8000</code>).</p>
+<div class="language-nginx highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="p">:</span><span class="s">//misitioweb.com</span><span class="p">;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:8000</span><span class="p">;</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">        </span><span class="c1"># Mapeo de cabeceras críticas para la aplicación interna</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="5-diagnostico-y-resolucion-de-problemas-troubleshooting">5. Diagnóstico y Resolución de Problemas (Troubleshooting)<a class="headerlink" href="#5-diagnostico-y-resolucion-de-problemas-troubleshooting" title="Permanent link">&para;</a></h2>
+<p>Cuando la web no carga y el comando <code>nginx -t</code> da una validación correcta, los errores suelen registrarse en los logs internos.</p>
+<h3 id="inspeccionar-errores-en-tiempo-real">Inspeccionar Errores en Tiempo Real<a class="headerlink" href="#inspeccionar-errores-en-tiempo-real" title="Permanent link">&para;</a></h3>
+<p>Abre la terminal y ejecuta este comando mientras intentas recargar la web en tu navegador:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>tail<span class="w"> </span>-f<span class="w"> </span>/var/log/nginx/error.log
+</span></code></pre></div></p>
+<h3 id="errores-comunes-de-conexion">Errores Comunes de Conexión<a class="headerlink" href="#errores-comunes-de-conexion" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong><code>502 Bad Gateway</code> (connect() failed - 111: Connection refused)</strong></li>
+<li><em>Causa:</em> Nginx funciona bien, pero el servicio trasero (Gunicorn/Python/Node) está apagado o escucha en un puerto diferente al configurado en el <code>proxy_pass</code>.</li>
+<li>
+<p><em>Solución:</em> Verifica el puerto con <code>ss -tlnp</code> y levanta el servicio interno.</p>
+</li>
+<li>
+<p><strong><code>403 Forbidden</code></strong></p>
+</li>
+<li><em>Causa:</em> Nginx no tiene permisos de lectura sobre la carpeta del parámetro <code>root</code> o falta el archivo <code>index.html</code>.</li>
+<li>
+<p><em>Solución:</em> Ajusta los permisos con <code>sudo chown -R www-data:www-data /var/www/ruta</code>.</p>
+</li>
+<li>
+<p><strong><code>404 Not Found</code></strong></p>
+</li>
+<li><em>Causa:</em> La ruta solicitada en el navegador no existe en el disco duro o la directiva <code>try_files</code> está mal estructurada.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":".","features":[],"redirect":null,"search":"./assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="./assets/javascripts/bundle.3c842f4c.min.js"></script>
+      
+    
+  </body>
+</html>
